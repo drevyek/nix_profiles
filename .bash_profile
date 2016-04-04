@@ -1,4 +1,4 @@
-eval "$(rbenv init -)"
-EDITOR=subl
-BUNDLER_EDITOR=subl
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 source ~/.bashrc
+EDITOR=vim

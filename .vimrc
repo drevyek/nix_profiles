@@ -1,53 +1,22 @@
-" Editor Options
+" Editor Optiona
 syntax enable
 set showcmd
 set number
 set nocompatible
 set scrolloff=5
-compiler gcc
 set visualbell
-set shell=bash
-set fileformats=unix
+set backspace=indent,eol,start
 set ff=unix
-
-
-" Whitespace
-set list
-set listchars=tab:>=,trail:·,extends:>,precedes:<,nbsp:·
-autocmd BufWritePre * :%s/\s\+$//e
-
-
-" Search Options
-set wildmenu
-set incsearch
-set ignorecase
-set hlsearch
-set showmatch
-set diffopt=filler,iwhite
-set smartcase
-set grepprg=grep\ -nH\ $*
-nnoremap n nzz
-nnoremap N Nzz
-
 
 " Mode Management
 inoremap qq <Esc>
 nnoremap ; :
-noremap <C-;> <Esc>:
+noremap <C-;> <Esc>
 
-
-" Basic Navigation
-nnoremap <C-l> $
-nnoremap <C-h> 0
-nnoremap <C-j> G
-nnoremap <C-k> gg
-vnoremap <C-l> $
-vnoremap <C-h> 0
-vnoremap <C-j> G
-vnoremap <C-k> 1G
-inoremap <C-l> <End>
-inoremap <C-h> <Home>
-nnoremap <C-Tab> ^
+" Whitespace
+set list
+set listchars=tab:>=,trail:·,extends:>,precedes:<,nbsp:·
+autocmd BufWritePre * :%s/\s+$//e
 
 
 " Tabbing
@@ -61,16 +30,14 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 
-
-" Buffers & Tabs
+" Buffers
 cnoremap ls ls!
 nnoremap <silent> <Tab> :call SwitchToNextBuffer(1)<cr>:ls!<cr>:echo "To Next Buffer"<cr>
 nnoremap <silent> <S-Tab> :call SwitchToNextBuffer(-1)<cr>:ls!<cr>:echo "To Previous Buffer"<cr>
 
 
-" Functions & Plugins
+" Functions
 filetype plugin on
-execute pathogen#infect()
 
 function! SwitchToNextBuffer(incr)
   let help_buffer = (&filetype == 'help')
