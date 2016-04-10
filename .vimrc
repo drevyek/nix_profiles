@@ -1,12 +1,10 @@
-" Editor Optiona
+" Editor Options
 syntax enable
 set showcmd
 set number
-set nocompatible
 set scrolloff=5
 set visualbell
 set backspace=indent,eol,start
-set ff=unix
 
 " Mode Management
 inoremap qq <Esc>
@@ -17,7 +15,7 @@ noremap <C-;> <Esc>
 set list
 set listchars=tab:>=,trail:·,extends:>,precedes:<,nbsp:·
 autocmd BufWritePre * :%s/\s+$//e
-
+nnoremap <Enter><Enter> o<Esc>k
 
 " Tabbing
 filetype indent on
@@ -35,10 +33,7 @@ cnoremap ls ls!
 nnoremap <silent> <Tab> :call SwitchToNextBuffer(1)<cr>:ls!<cr>:echo "To Next Buffer"<cr>
 nnoremap <silent> <S-Tab> :call SwitchToNextBuffer(-1)<cr>:ls!<cr>:echo "To Previous Buffer"<cr>
 
-
 " Functions
-filetype plugin on
-
 function! SwitchToNextBuffer(incr)
   let help_buffer = (&filetype == 'help')
   let current = bufnr("%")
@@ -61,3 +56,7 @@ function! SwitchToNextBuffer(incr)
     endif
   endwhile
 endfunction
+
+" Plugins
+filetype plugin on
+execute pathogen#infect()
