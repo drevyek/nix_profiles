@@ -2,7 +2,7 @@
 syntax enable
 set showcmd
 set number
-set scrolloff=5
+set scrolloff=15
 set visualbell
 set backspace=indent,eol,start
 
@@ -33,6 +33,11 @@ cnoremap ls ls!
 nnoremap <silent> <Tab> :call SwitchToNextBuffer(1)<cr>:ls!<cr>:echo "To Next Buffer"<cr>
 nnoremap <silent> <S-Tab> :call SwitchToNextBuffer(-1)<cr>:ls!<cr>:echo "To Previous Buffer"<cr>
 
+" Wildmenu
+" set wildmenu=true
+
+" Cursor Options
+
 " Functions
 function! SwitchToNextBuffer(incr)
   let help_buffer = (&filetype == 'help')
@@ -60,3 +65,11 @@ endfunction
 " Plugins
 filetype plugin on
 execute pathogen#infect()
+
+
+" Background Colors
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+colorscheme molokai
+set t_ut=
+autocmd InsertLeave <C-L> -v

@@ -11,6 +11,7 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 #Terminal/Prompt Options
+set bell-style visible
 shopt -s checkwinsize
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -46,6 +47,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+TERM=gnome-256color
 
 # ls Aliases
 alias ll='ls -l'
@@ -67,8 +69,16 @@ if ! shopt -oq posix; then
 fi
 
 # PATH Modifications
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 PATH=~/bin:$PATH
+exToPath(){
+  case ":${PATH}:" in
+    *:$1:*) ;;
+    *)            PATH=${PATH}:$1;;
+  esac
+  export PATH
+}
+exToPath "$HOME/.rvm/bin"
+exToPath "$HOME/usrbin"
 
 # Misc Options
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -78,13 +88,58 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 export EDITOR=vim
 
+# Processes
+psgrep(){
+  if [! -z $1]; then 
+    echo "Grepping for Processes matching $1"
+    ps aux | grep $1 | grep -v grep
+  else
+    echo "!! Need name to grep!"
+  fi
+}
+
+# x and go
+cpg(){
+  if [-d "$2"]; then
+    cp $1 $2 && cd $2
+  else 
+    cp $1 $2
+  fi
+}
+
+mvg(){
+  if [-d "$2"]; then
+    mv $1 $2 && cd $2
+  else 
+    mv $1 $2
+  fi
+}
+
+# File Extraction/Compression
+extract(){
+  if [-f $1]; then
+    case $1 in
+      *.tar.bz2)  tar xjf $1    ;;
+      *.tar.gz)   tar xzf $1    ;;
+      *.bz2)      bunzip2 $1    ;;
+      *.rar)      rar x $1      ;;
+      *.gz)       gunzip $1     ;;
+      *.tar)      tar xf $1     ;;
+      *.tbz2)     tar xjf $1    ;;
+      *.tgz)      tar xzf $1    ;;
+      *.zip)      unzip $1      ;;
+      *.Z)        uncompress $1 ;;
+      *.7z)       7z x $1       ;;
+      *)          echo "Unknown file extension"   ;;
+    esac
+  else
+    echo "$1 is not a valid file"
+  fi
+}
+
 # Misc Options
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 export GIT_EDITOR=vim
 export VISUAL=vim
