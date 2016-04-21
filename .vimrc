@@ -72,4 +72,3 @@ highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 colorscheme molokai
 set t_ut=
-autocmd InsertLeave <C-L> -v

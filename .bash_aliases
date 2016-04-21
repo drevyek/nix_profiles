@@ -6,6 +6,9 @@ alias gco="git checkout"
 alias ga.="git add ."
 alias gcan="git commit --amend --no-edit"
 alias gcmg="git commit -m"
+alias gpu="git pu"
+alias gbprune="git remote update --prune"
+alias gbpurge="git fetch --prune && git branch -vv | grep ':gone]' | awk '{print $1}' | xargs git branch -d"
 
 # Screen
 alias sls="screen -ls"
@@ -25,3 +28,9 @@ alias py3="python"
 # File Explorer
 alias ii="dg-open"
 
+# Pacman
+alias spacman='sudo pacman'
+alias pacgrade='sudo pacman -Syu'
+alias pacstall='sudo pacman -S'
+alias pacsearch='sudo pacman -Ss'
+alias pacmove='sudo pacman -Rns'

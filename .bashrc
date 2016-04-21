@@ -12,6 +12,7 @@ HISTFILESIZE=2000
 
 #Terminal/Prompt Options
 set bell-style visible
+set completion-ignore-case on
 shopt -s checkwinsize
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -59,6 +60,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/.usrbinrc ]; then
+  . ~/.usrbinrc
+fi
+
 # Tab Completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -80,14 +85,6 @@ exToPath(){
 exToPath "$HOME/.rvm/bin"
 exToPath "$HOME/usrbin"
 
-# Misc Options
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-export EDITOR=vim
-
 # Processes
 psgrep(){
   if [! -z $1]; then 
@@ -100,7 +97,7 @@ psgrep(){
 
 # x and go
 cpg(){
-  if [-d "$2"]; then
+  if [ -d "$2" ]; then
     cp $1 $2 && cd $2
   else 
     cp $1 $2
@@ -108,16 +105,23 @@ cpg(){
 }
 
 mvg(){
-  if [-d "$2"]; then
+  if [ -d "$2" ]; then
     mv $1 $2 && cd $2
   else 
     mv $1 $2
   fi
 }
 
+mkdg(){
+  if [ -d "$1" ]; then
+    mkdir $1 && cd $1
+  fi
+}
+
+
 # File Extraction/Compression
 extract(){
-  if [-f $1]; then
+  if [ -f $1 ]; then
     case $1 in
       *.tar.bz2)  tar xjf $1    ;;
       *.tar.gz)   tar xzf $1    ;;
@@ -141,6 +145,7 @@ extract(){
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+export EDITOR=vim
 export GIT_EDITOR=vim
 export VISUAL=vim
 export EDITOR=$VISUAL
