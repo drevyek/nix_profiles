@@ -1,3 +1,23 @@
+" Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-abolish'
+Plugin 'colorsupport.vim'
+Plugin 'Indent-Guides'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'AutoComplPop'
+
+call vundle#end()
+filetype plugin indent on
+
 " Editor Options
 syntax enable
 set showcmd
@@ -5,6 +25,11 @@ set number
 set scrolloff=15
 set visualbell
 set backspace=indent,eol,start
+set mouse=a
+set ruler
+set laststatus=2
+set ttyfast
+set ttymouse=xterm2
 
 " Mode Management
 inoremap qq <Esc>
@@ -19,7 +44,7 @@ nnoremap <Enter><Enter> o<Esc>k
 
 " Tabbing
 filetype indent on
-vnoremap <Tab> >
+vnoremap <Tab> > indent on SwitchToNex
 vnoremap <S-Tab> <
 inoremap <S-Tab> <Esc><<i
 set smarttab
@@ -34,9 +59,7 @@ nnoremap <silent> <Tab> :call SwitchToNextBuffer(1)<cr>:ls!<cr>:echo "To Next Bu
 nnoremap <silent> <S-Tab> :call SwitchToNextBuffer(-1)<cr>:ls!<cr>:echo "To Previous Buffer"<cr>
 
 " Wildmenu
-" set wildmenu=true
-
-" Cursor Options
+set wildmenu
 
 " Functions
 function! SwitchToNextBuffer(incr)
@@ -62,13 +85,21 @@ function! SwitchToNextBuffer(incr)
   endwhile
 endfunction
 
-" Plugins
-filetype plugin on
-execute pathogen#infect()
-
-
 " Background Colors
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
-colorscheme molokai
+autocmd VimEnter * :colorscheme molokai
 set t_ut=
+
+" Indent Guides
+autocmd VimEnter * :IndentGuidesEnable
+let g:indent_guides_guide_size = 1
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" AutoComplPop
