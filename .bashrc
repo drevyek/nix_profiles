@@ -54,6 +54,8 @@ TERM=gnome-256color
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+alias lla='ls -la'
+alias lal='ls -la'
 
 # External Alias definitions
 if [ -f ~/.bash_aliases ]; then
