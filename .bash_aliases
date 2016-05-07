@@ -26,7 +26,7 @@ alias py2="python2"
 alias py3="python"
 
 # File Explorer
-alias ii="dg-open"
+alias open="dg-open"
 
 # Pacman
 alias spacman='sudo pacman'
