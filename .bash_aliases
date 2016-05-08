@@ -34,3 +34,6 @@ alias pacgrade='sudo pacman -Syu'
 alias pacstall='sudo pacman -S'
 alias pacsearch='sudo pacman -Ss'
 alias pacmove='sudo pacman -Rns'
+
+# systemd
+alias ssleep='sudo systemctl suspend'
