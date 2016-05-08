@@ -14,6 +14,11 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'AutoComplPop'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'powerline/powerline'
+Plugin 'Raimondi/delimitMate'
+Plugin 'mileszs/ack.vim'
 
 call vundle#end()
 filetype plugin indent on
