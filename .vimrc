@@ -19,6 +19,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'powerline/powerline'
 Plugin 'Raimondi/delimitMate'
 Plugin 'mileszs/ack.vim'
+Plugin 'easymotion/vim-easymotion'
 
 call vundle#end()
 filetype plugin indent on
