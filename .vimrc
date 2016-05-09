@@ -13,13 +13,20 @@ Plugin 'Indent-Guides'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-Plugin 'AutoComplPop'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'powerline/powerline'
 Plugin 'Raimondi/delimitMate'
 Plugin 'mileszs/ack.vim'
 Plugin 'easymotion/vim-easymotion'
+if has("lua") == 1
+  Plugin 'shougo/neocomplete.vim'
+else
+  Plugin 'AutoComplPop'
+endif
+
+Plugin 'tpope/vim-eunuch'
+Plugin 'godlygeek/tabular'
 
 call vundle#end()
 filetype plugin indent on
@@ -36,6 +43,7 @@ set ruler
 set laststatus=2
 set ttyfast
 set ttymouse=xterm2
+let mapleader="\\"
 
 " Mode Management
 inoremap qq <Esc>
@@ -109,4 +117,20 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" AutoComplPop
+" AutoComplPop && neocomplete
+if has("lua") == 1
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  inoremap <expr><C-g> neocomplete#undo_completion()
+  inoremap <expr><C-l> neocomplete#complete_common_string()
+  inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <silent> <CR> <C-r>=<SID>neocomplete_CR()<CR>
+  function! s:neocomplete_CR()
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  endfunction
+  let g:neocomplete#enable_auto_select = 1
+endif
