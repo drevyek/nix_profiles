@@ -20,13 +20,14 @@ esac
 force_color_prompt=yes
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+        PS1="\[\033[38;5;10m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] {\w}:\n\[$(tput sgr0)\]\[\033[38;5;10m\]\A\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
         color_prompt=yes
     else
-        PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+        PS1='\u@\h {\w}:\n\A\\$ '
         color_prompt=
     fi
 fi
+
 unset color_prompt force_color_prompt
 case "$TERM" in
 xterm*|rxvt*)
@@ -48,7 +49,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-TERM=gnome-256color
+TERM=screen-256color
 
 # ls Aliases
 alias ll='ls -l'
@@ -151,3 +152,6 @@ export EDITOR=vim
 export GIT_EDITOR=vim
 export VISUAL=vim
 export EDITOR=$VISUAL
+
+# Welcome message
+clear
