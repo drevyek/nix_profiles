@@ -439,6 +439,7 @@ nnoremap <f8> :delete<cr>
 " Editor Customizations
 nnoremap ; :
 nnoremap <BS> h
+colorscheme zenburn
 
 " Use ag (the silver searcher) instead of grep
 "
