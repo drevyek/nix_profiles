@@ -25,6 +25,8 @@ else
   Plugin 'AutoComplPop'
 endif
 Plugin 'vim-ruby/vim-ruby'
+"Plugin 'c.vim'
+Plugin 'justinmk/vim-syntax-extra'
 
 call vundle#end()
 filetype plugin indent on
@@ -42,6 +44,7 @@ set laststatus=2
 set ttyfast
 set ttymouse=xterm2
 let mapleader="\\"
+set cursorline
 
 " Mode Management
 inoremap qq <Esc>
@@ -99,15 +102,17 @@ endfunction
 
 " Background Colors
 autocmd VimEnter * :colorscheme molokai
+autocmd VimEnter * :hi clear CursorLine
+
 set t_ut=
 
 " Indent Guides
-autocmd VimEnter * :IndentGuidesEnable
 let g:indent_guides_guide_size = 0
-let g:indent_guides_start_level = 3
+let g:indent_guides_start_level = 2
 let g:indent_guides_color_change_percent = 10
 let g:indent_guides_exclude_filetype = ['help', 'nerdtree']
 let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
 hi IndentGuidesOdd ctermbg=235
 hi IndentGuidesEven ctermbg=234
 
@@ -124,6 +129,7 @@ let g:syntastic_c_include_dirs = ['../include', 'include', '../inc', 'inc']
 " AutoComplPop && neocomplete
  if has("lua") == 1
   let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
   let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -132,9 +138,9 @@ let g:syntastic_c_include_dirs = ['../include', 'include', '../inc', 'inc']
   inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <silent> <CR> <C-r>=<SID>neocomplete_CR()<CR>
+  inoremap <silent> <CR> <C-r>=<SID>neocomplete_CR()
   function! s:neocomplete_CR()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"\<CR>
   endfunction
   let g:neocomplete#enable_auto_select = 1
 endif
