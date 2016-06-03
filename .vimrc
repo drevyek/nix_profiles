@@ -19,13 +19,8 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'godlygeek/tabular'
 Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
-if has("lua") == 1
-  Plugin 'shougo/neocomplete.vim'
-else
-  Plugin 'AutoComplPop'
-endif
+Plugin 'AutoComplPop'
 Plugin 'vim-ruby/vim-ruby'
-"Plugin 'c.vim'
 Plugin 'justinmk/vim-syntax-extra'
 
 call vundle#end()
@@ -103,6 +98,7 @@ endfunction
 " Background Colors
 autocmd VimEnter * :colorscheme molokai
 autocmd VimEnter * :hi clear CursorLine
+autocmd VimEnter * :IndentGuidesEnable
 
 set t_ut=
 
@@ -125,22 +121,3 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_c_include_dirs = ['../include', 'include', '../inc', 'inc']
-
-" AutoComplPop && neocomplete
- if has("lua") == 1
-  let g:acp_enableAtStartup = 0
-  let g:neocomplete#enable_auto_select = 1
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-  inoremap <expr><C-g> neocomplete#undo_completion()
-  inoremap <expr><C-l> neocomplete#complete_common_string()
-  inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <silent> <CR> <C-r>=<SID>neocomplete_CR()
-  function! s:neocomplete_CR()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"\<CR>
-  endfunction
-  let g:neocomplete#enable_auto_select = 1
-endif
