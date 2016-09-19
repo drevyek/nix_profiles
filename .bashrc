@@ -52,11 +52,11 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 TERM=xterm-256color
 
 # ls Aliases
-alias ll='ls -l'
+alias ll='ls -o'
 alias la='ls -A'
 alias l='ls -CF'
-alias lla='ls -la'
-alias lal='ls -la'
+alias lla='ls -oA'
+alias lal='ls -Ao'
 
 # External Alias definitions
 if [ -f ~/.bash_aliases ]; then
@@ -90,37 +90,13 @@ exToPath "$HOME/usrbin"
 
 # Processes
 psgrep(){
-  if [! -z $1]; then 
+  if [ ! -z $1 ]; then 
     echo "Grepping for Processes matching $1"
     ps aux | grep $1 | grep -v grep
   else
     echo "!! Need name to grep!"
   fi
 }
-
-# x and go
-cpg(){
-  if [ -d "$2" ]; then
-    cp $1 $2 && cd $2
-  else 
-    cp $1 $2
-  fi
-}
-
-mvg(){
-  if [ -d "$2" ]; then
-    mv $1 $2 && cd $2
-  else 
-    mv $1 $2
-  fi
-}
-
-mkdg(){
-  if [ -d "$1" ]; then
-    mkdir $1 && cd $1
-  fi
-}
-
 
 # File Extraction/Compression
 extract(){
@@ -153,5 +129,5 @@ export GIT_EDITOR=vim
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-# Welcome message
 clear
+# Welcome message

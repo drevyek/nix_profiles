@@ -19,7 +19,7 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'godlygeek/tabular'
 Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
-Plugin 'AutoComplPop'
+"Plugin 'AutoComplPop'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'justinmk/vim-syntax-extra'
 
@@ -54,7 +54,7 @@ nnoremap <Enter><Enter> o<Esc>k
 
 " Tabbing
 filetype indent on
-vnoremap <Tab> > indent on SwitchToNex
+vnoremap <Tab> >
 vnoremap <S-Tab> <
 inoremap <S-Tab> <Esc><<i
 set smarttab

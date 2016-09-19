@@ -38,3 +38,6 @@ alias pacmove='sudo pacman -Rns'
 
 # systemd
 alias ssleep='sudo systemctl suspend'
+
+# vim
+alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'
