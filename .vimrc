@@ -3,25 +3,55 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'
+
+" tpope
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-abolish'
-Plugin 'colorsupport.vim'
-Plugin 'Indent-Guides'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'powerline/powerline'
-Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-eunuch'
-Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
+
+" Syntax
 Plugin 'scrooloose/syntastic'
-Plugin 'Raimondi/delimitMate'
-"Plugin 'AutoComplPop'
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'justinmk/vim-syntax-extra'
+Plugin 'vim-ruby/vim-ruby'
+" " JavaScript
+Plugin 'mxw/vim-jsx'
+"Plugin 'jussi-kalliokoski/harmony.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'moll/vim-node'
+Plugin 'digitaltoad/vim-pug'
+Plugin 'groenewege/vim-less'
+" " Python
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'tmhedberg/SimpylFold'
+"Plugin 'nvie/vim-flake8'
+
+"Plugin 'majutsushi/tagbar'
+
+" Naviation and Interface
+Plugin 'Raimondi/delimitMate'
+Plugin 'Yggdroot/indentLine'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'bling/vim-bufferline'
+Plugin 'mileszs/ack.vim'
+Plugin 'godlygeek/tabular'
+
+" Colors
+Plugin 'colorsupport.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'crusoexia/vim-monokai'
+Plugin 'jnurmine/Zenburn'
+
 
 call vundle#end()
 filetype plugin indent on
@@ -30,27 +60,44 @@ filetype plugin indent on
 syntax enable
 set showcmd
 set number
-set scrolloff=15
+set scrolloff=10
 set visualbell
 set backspace=indent,eol,start
 set mouse=a
 set ruler
 set laststatus=2
 set ttyfast
-set ttymouse=xterm2
-let mapleader="\\"
+"set ttymouse=xterm2
 set cursorline
 
-" Mode Management
-inoremap qq <Esc>
+" Folds
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+nnoremap <space> za
+set foldmethod=indent
+
+" Mode
 nnoremap ; :
-noremap <C-;> <Esc>
+cnoremap W w
+cnoremap Q q
+
+" Movement
+nnoremap j gj
+nnoremap k gk
+nnoremap B ^
+nnoremap E $
+
+" Leader
+let mapleader=","
+
+" Buffers
+autocmd BufEnter * silent! lcd %:p:h
 
 " Whitespace
 set list
-set listchars=tab:>=,trail:·,extends:>,precedes:<,nbsp:·
-autocmd BufWritePre * :%s/\s+$//e
-nnoremap <Enter><Enter> o<Esc>k
+set listchars=tab:=-,trail:·,extends:>,precedes:<,nbsp:·
+"autocmd BufWritePre * :%s/\s+$//e
 
 " Tabbing
 filetype indent on
@@ -63,54 +110,16 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 
-" Buffers
-cnoremap ls ls!
-nnoremap <silent> <Tab> :call SwitchToNextBuffer(1)<cr>:ls!<cr>:echo "To Next Buffer"<cr>
-nnoremap <silent> <S-Tab> :call SwitchToNextBuffer(-1)<cr>:ls!<cr>:echo "To Previous Buffer"<cr>
-
 " Wildmenu
 set wildmenu
 
-" Functions
-function! SwitchToNextBuffer(incr)
-  let help_buffer = (&filetype == 'help')
-  let current = bufnr("%")
-  let last = bufnr("$")
-  let new = current + a:incr
-  while 1
-    if new != 0 && bufexists(new) && ((getbufvar(new, "&filetype") == 'help') == help_buffer)
-      execute ":buffer ".new
-      break
-    else
-      let new = new + a:incr
-      if new < 1
-        let new = last
-      elseif new > last
-        let new = 1
-      endif
-      if new == current
-        break
-      endif
-    endif
-  endwhile
-endfunction
-
-" Background Colors
-autocmd VimEnter * :colorscheme molokai
-autocmd VimEnter * :hi clear CursorLine
-autocmd VimEnter * :IndentGuidesEnable
+" Colors
+"autocmd VimEnter * :colorscheme Monokai
+autocmd VimEnter * :colorscheme zenburn
+set colorcolumn=80
+au VimEnter * highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 
 set t_ut=
-
-" Indent Guides
-let g:indent_guides_guide_size = 0
-let g:indent_guides_start_level = 2
-let g:indent_guides_color_change_percent = 10
-let g:indent_guides_exclude_filetype = ['help', 'nerdtree']
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_startup = 1
-hi IndentGuidesOdd ctermbg=235
-hi IndentGuidesEven ctermbg=234
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -121,3 +130,35 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_c_include_dirs = ['../include', 'include', '../inc', 'inc']
+let g:systastic_javascript_checkers = ['eslint']
+
+" delimitMate
+let delimitMate_expand_cr = 1
+
+" Ctrl-P
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" Nerdtree
+let NERDTreeIgnore=['\.pyc$', '\~$']
+map <C-n> :NERDTreeToggle<CR>
+au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTREE.isTabTree()) | q | endif
+
+" Airline
+au VimEnter * :AirlineTheme zenburn
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#color_template = 'normal'
+set noshowmode
+
+" Language Specifics
+" C/C++
+au BufRead,BufNewFile *.c,*.h,*.cpp,*.hpp s:c_syntax_specifics_setlocal()
+fu! s:c_syntax_specifics_setlocal()
+  setlocal tabstop=4
+  setlocal shiftwidth=4
+  setlocal comments-=://
+  setlocal comments+=f://
+  return
+endfunction
+

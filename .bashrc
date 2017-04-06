@@ -87,6 +87,7 @@ exToPath(){
 }
 exToPath "$HOME/.rvm/bin"
 exToPath "$HOME/usrbin"
+exToPath "/usr/sbin"
 
 # Processes
 psgrep(){
@@ -131,3 +132,11 @@ export EDITOR=$VISUAL
 
 clear
 # Welcome message
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+
+export NVM_DIR="/home/kettro/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -25,19 +25,8 @@ alias svim="sudo vim"
 alias py2="python2"
 alias py3="python"
 
-# File Explorer
-alias open="xdg-open"
-alias vifm="TERM=screen-256color vifm"
-
-# Pacman
-alias spacman='sudo pacman'
-alias pacgrade='sudo pacman -Syu'
-alias pacstall='sudo pacman -S'
-alias pacsearch='sudo pacman -Ss'
-alias pacmove='sudo pacman -Rns'
-
-# systemd
-alias ssleep='sudo systemctl suspend'
-
 # vim
 alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'
+
+# ssh
+alias bbone="ssh kettro@76.11.25.36"
