@@ -4,7 +4,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-
 " tpope
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-abolish'
@@ -18,9 +17,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/syntastic'
 Plugin 'justinmk/vim-syntax-extra'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'fatih/vim-go'
 " " JavaScript
 Plugin 'mxw/vim-jsx'
-"Plugin 'jussi-kalliokoski/harmony.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'jelera/vim-javascript-syntax'
@@ -32,7 +31,13 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tmhedberg/SimpylFold'
 "Plugin 'nvie/vim-flake8'
 
-"Plugin 'majutsushi/tagbar'
+" " Scala
+Plugin 'derekwyatt/vim-scala'
+"Plugin 'ensime/ensime-vim'
+
+" " Haskell
+Plugin 'neovimhaskell/haskell-vim'
+
 
 " Naviation and Interface
 Plugin 'Raimondi/delimitMate'
@@ -45,15 +50,16 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'bling/vim-bufferline'
 Plugin 'mileszs/ack.vim'
 Plugin 'godlygeek/tabular'
+Plugin 'majutsushi/tagbar'
+Plugin 'xolox/vim-easytags'
 
 " Colors
-Plugin 'colorsupport.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'crusoexia/vim-monokai'
+Plugin 'vim-scripts/colorsupport.vim'
 Plugin 'jnurmine/Zenburn'
-
+Plugin 'kien/rainbow_parentheses.vim'
 
 call vundle#end()
+
 filetype plugin indent on
 
 " Editor Options
@@ -130,7 +136,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_c_include_dirs = ['../include', 'include', '../inc', 'inc']
-let g:systastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['jslint']
 
 " delimitMate
 let delimitMate_expand_cr = 1
@@ -142,7 +148,7 @@ let g:ctrlp_cmd = 'CtrlP'
 
 " Nerdtree
 let NERDTreeIgnore=['\.pyc$', '\~$']
-map <C-n> :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeToggle<CR>
 au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTREE.isTabTree()) | q | endif
 
 " Airline
@@ -151,14 +157,25 @@ let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#color_template = 'normal'
 set noshowmode
 
+" Tabular
+au BufRead,BufNewFile *.hs,.lhs :let g:haskell_tabular = 1
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a: :Tabularize /:<CR>
+vmap a- :Tabularize /-><CR>
+
+" TagBar
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
+
 " Language Specifics
 " C/C++
-au BufRead,BufNewFile *.c,*.h,*.cpp,*.hpp s:c_syntax_specifics_setlocal()
-fu! s:c_syntax_specifics_setlocal()
-  setlocal tabstop=4
-  setlocal shiftwidth=4
-  setlocal comments-=://
-  setlocal comments+=f://
-  return
-endfunction
+"fu s:c_syntax_specifics_setlocal()
+"  setlocal tabstop=4
+"  setlocal shiftwidth=4
+"  setlocal comments-=://
+"  setlocal comments+=f://
+"endfunction
+"au BufRead,BufNewFile *.c,*.h,*.cpp,*.hpp s:c_syntax_specifics_setlocal()
+"
+" Scala
 

@@ -76,18 +76,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# PATH Modifications
-PATH=~/bin:$PATH
-exToPath(){
-  case ":${PATH}:" in
-    *:$1:*) ;;
-    *)            PATH=${PATH}:$1;;
-  esac
-  export PATH
-}
-exToPath "$HOME/.rvm/bin"
-exToPath "$HOME/usrbin"
-exToPath "/usr/sbin"
 
 # Processes
 psgrep(){
@@ -130,13 +118,10 @@ export GIT_EDITOR=vim
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-clear
-# Welcome message
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-
+# PATH Modifications
+export PATH=/usr/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
 export NVM_DIR="/home/kettro/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+clear
