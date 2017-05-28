@@ -18,11 +18,15 @@ Plugin 'scrooloose/syntastic'
 Plugin 'justinmk/vim-syntax-extra'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'fatih/vim-go'
+Plugin 'udalov/kotlin-vim'
+
 " " JavaScript
-Plugin 'mxw/vim-jsx'
+"Plugin 'mxw/vim-jsx'
+Plugin 'MaxMEllon/vim-jsx-pretty'
+Plugin 'jbgutierrez/vim-babel'
 Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'jelera/vim-javascript-syntax'
+"Plugin 'othree/javascript-libraries-syntax.vim'
+"Plugin 'jelera/vim-javascript-syntax'
 Plugin 'moll/vim-node'
 Plugin 'digitaltoad/vim-pug'
 Plugin 'groenewege/vim-less'
@@ -51,12 +55,11 @@ Plugin 'bling/vim-bufferline'
 Plugin 'mileszs/ack.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'majutsushi/tagbar'
-Plugin 'xolox/vim-easytags'
 
 " Colors
 Plugin 'vim-scripts/colorsupport.vim'
 Plugin 'jnurmine/Zenburn'
-Plugin 'kien/rainbow_parentheses.vim'
+"Plugin 'kien/rainbow_parentheses.vim'
 
 call vundle#end()
 
@@ -136,7 +139,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_c_include_dirs = ['../include', 'include', '../inc', 'inc']
-let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = []
+"autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') !=# '' ? ['eslint'] : []
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
 " delimitMate
 let delimitMate_expand_cr = 1
@@ -177,5 +183,7 @@ nnoremap <silent> <Leader>b :TagbarToggle<CR>
 "endfunction
 "au BufRead,BufNewFile *.c,*.h,*.cpp,*.hpp s:c_syntax_specifics_setlocal()
 "
-" Scala
+" JavaScript
+au BufRead,BufNewFile *.js,*.jsx set conceallevel=1 | setlocal tabstop=4 | setlocal shiftwidth=4
+let g:vim_jsx_pretty_colorful_config=1
 
